@@ -1,0 +1,936 @@
+
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYBER KNOWLEDGE | Информатика</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Exo+2:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+ --bg:#050711;
+ --cyan:#00f5ff;
+ --pink:#ff00c8;
+ --purple:#8b5cf6;
+ --white:#e9faff;
+ --muted:#a1b6c9;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+ background:var(--bg);
+ color:var(--white);
+ font-family:'Exo 2',sans-serif;
+ overflow:hidden;
+}
+
+body:before{
+ content:"";
+ position:fixed;
+ inset:0;
+ background-image:
+ linear-gradient(rgba(0,245,255,.035) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(0,245,255,.035) 1px,transparent 1px);
+ background-size:40px 40px;
+ pointer-events:none;
+ z-index:0;
+}
+
+body:after{
+ content:"";
+ position:fixed;
+ width:500px;height:500px;
+ background:var(--purple);
+ filter:blur(180px);
+ opacity:.13;
+ top:-200px;right:-100px;
+ pointer-events:none;
+}
+
+.presentation{
+ position:relative;
+ width:100%;
+ height:100dvh;
+ z-index:1;
+}
+
+.slide{
+ position:absolute;
+ inset:0;
+ padding:85px 8% 100px;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ opacity:0;
+ visibility:hidden;
+ transform:translateX(60px) scale(.97);
+ transition:.65s ease;
+ overflow-y:auto;
+}
+
+.slide.active{
+ opacity:1;
+ visibility:visible;
+ transform:translateX(0) scale(1);
+}
+
+.top-label{
+ font-family:'Orbitron',sans-serif;
+ color:var(--cyan);
+ font-size:12px;
+ letter-spacing:5px;
+ margin-bottom:22px;
+ text-shadow:0 0 15px var(--cyan);
+}
+
+h1{
+ font-family:'Orbitron',sans-serif;
+ font-size:clamp(30px,5.4vw,70px);
+ line-height:1.17;
+ margin-bottom:24px;
+ text-transform:uppercase;
+ text-shadow:0 0 25px rgba(0,245,255,.35);
+}
+
+h1 span{color:var(--cyan)}
+
+h2{
+ font-family:'Orbitron',sans-serif;
+ font-size:clamp(22px,3vw,38px);
+ margin-bottom:20px;
+ color:var(--cyan);
+}
+
+p{
+ font-size:clamp(15px,1.35vw,19px);
+ line-height:1.75;
+ color:#c1d1e0;
+}
+
+.hero-text{max-width:780px}
+
+.neon-line{
+ width:110px;
+ height:3px;
+ background:var(--cyan);
+ box-shadow:0 0 20px var(--cyan);
+ margin:20px 0;
+}
+
+.hero{
+ display:grid;
+ grid-template-columns:1.1fr .9fr;
+ align-items:center;
+ gap:45px;
+}
+
+.hero-image{
+ position:relative;
+}
+
+.hero-image img{
+ width:100%;
+ height:340px;
+ object-fit:cover;
+ border:1px solid var(--cyan);
+ border-radius:15px;
+ box-shadow:0 0 30px rgba(0,245,255,.22);
+ animation:float 4s ease-in-out infinite;
+}
+
+.hero-image:before{
+ content:"";
+ position:absolute;
+ inset:-12px;
+ border:1px solid var(--pink);
+ border-radius:20px;
+ opacity:.5;
+}
+
+@keyframes float{
+ 0%,100%{transform:translateY(0)}
+ 50%{transform:translateY(-12px)}
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:16px;
+ margin-top:20px;
+}
+
+.grid.three{
+ grid-template-columns:repeat(3,1fr);
+}
+
+.card{
+ background:linear-gradient(135deg,rgba(0,245,255,.08),rgba(139,92,246,.07));
+ border:1px solid rgba(0,245,255,.25);
+ padding:20px;
+ border-radius:13px;
+ position:relative;
+ overflow:hidden;
+ transition:.35s;
+}
+
+.card:hover{
+ transform:translateY(-6px);
+ border-color:var(--pink);
+ box-shadow:0 0 25px rgba(255,0,200,.15);
+}
+
+.card h3{
+ color:var(--cyan);
+ font-family:'Orbitron',sans-serif;
+ font-size:15px;
+ margin-bottom:10px;
+}
+
+.card p{font-size:15px;line-height:1.6}
+
+.number{
+ color:var(--pink);
+ font-family:'Orbitron',sans-serif;
+ font-size:24px;
+ margin-bottom:10px;
+ text-shadow:0 0 15px var(--pink);
+}
+
+.visual{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:35px;
+ align-items:center;
+ margin-top:15px;
+}
+
+.visual img{
+ width:100%;
+ height:270px;
+ object-fit:cover;
+ border-radius:14px;
+ border:1px solid var(--cyan);
+ box-shadow:0 0 25px rgba(0,245,255,.18);
+}
+
+ul{
+ padding-left:22px;
+ margin-top:12px;
+}
+
+li{
+ color:#c1d1e0;
+ font-size:16px;
+ line-height:1.8;
+ margin-bottom:5px;
+}
+
+.highlight{
+ color:var(--cyan);
+ font-weight:700;
+}
+
+.badge{
+ display:inline-block;
+ border:1px solid var(--pink);
+ color:#ff83e4;
+ padding:7px 13px;
+ border-radius:5px;
+ font-size:12px;
+ letter-spacing:2px;
+ margin:5px 5px 5px 0;
+}
+
+.timeline{
+ display:grid;
+ grid-template-columns:repeat(5,1fr);
+ gap:12px;
+ margin-top:25px;
+}
+
+.time-card{
+ padding:17px 12px;
+ border-top:3px solid var(--cyan);
+ background:rgba(0,245,255,.06);
+ border-radius:7px;
+}
+
+.time-card h3{
+ color:var(--pink);
+ font-family:'Orbitron',sans-serif;
+ font-size:14px;
+ margin-bottom:10px;
+}
+
+.time-card p{font-size:13px;line-height:1.5}
+
+.image-caption{
+ font-size:12px;
+ color:var(--muted);
+ margin-top:10px;
+ text-align:center;
+}
+
+.nav{
+ position:fixed;
+ bottom:24px;
+ left:0;right:0;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ gap:18px;
+ z-index:10;
+}
+
+.nav button{
+ background:rgba(0,245,255,.08);
+ border:1px solid var(--cyan);
+ color:var(--cyan);
+ padding:12px 23px;
+ cursor:pointer;
+ font-family:'Orbitron',sans-serif;
+ font-size:11px;
+ border-radius:6px;
+ transition:.3s;
+}
+
+.nav button:hover{
+ background:var(--cyan);
+ color:#000;
+ box-shadow:0 0 25px var(--cyan);
+}
+
+#counter{
+ font-family:'Orbitron',sans-serif;
+ color:var(--white);
+ font-size:13px;
+ min-width:55px;
+ text-align:center;
+}
+
+.progress{
+ position:fixed;
+ bottom:0;
+ left:0;
+ height:3px;
+ background:var(--pink);
+ box-shadow:0 0 15px var(--pink);
+ transition:.4s;
+ z-index:20;
+}
+
+.logo{
+ position:fixed;
+ top:20px;
+ left:30px;
+ font-family:'Orbitron',sans-serif;
+ font-size:12px;
+ color:var(--cyan);
+ letter-spacing:3px;
+ z-index:20;
+}
+
+.fullscreen{
+ position:fixed;
+ top:15px;
+ right:20px;
+ z-index:20;
+ background:transparent;
+ border:1px solid var(--pink);
+ color:var(--pink);
+ padding:9px 14px;
+ border-radius:5px;
+ cursor:pointer;
+}
+
+.pulse{
+ animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+ 0%,100%{text-shadow:0 0 5px var(--cyan)}
+ 50%{text-shadow:0 0 25px var(--cyan),0 0 40px var(--purple)}
+}
+
+.reveal{
+ animation:reveal .9s ease both;
+}
+
+@keyframes reveal{
+ from{opacity:0;transform:translateY(25px)}
+ to{opacity:1;transform:translateY(0)}
+}
+
+@media(max-width:800px){
+ .slide{padding:80px 6% 95px}
+ .hero,.visual{grid-template-columns:1fr}
+ .hero-image img{height:190px}
+ .visual img{height:190px}
+ .timeline{grid-template-columns:repeat(2,1fr)}
+ .grid.three{grid-template-columns:1fr}
+ .grid{grid-template-columns:1fr}
+ h1{font-size:30px}
+ p{font-size:15px}
+ .time-card p{font-size:12px}
+ .logo{font-size:10px;left:12px}
+ .nav{gap:8px}
+ .nav button{padding:11px 13px;font-size:10px}
+}
+
+@media(max-height:650px) and (min-width:801px){
+ .slide{padding-top:65px;padding-bottom:75px}
+ .hero-image img{height:220px}
+ .visual img{height:180px}
+ .card{padding:13px}
+ .card p{font-size:13px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="logo">CYBER KNOWLEDGE / 2026</div>
+
+<button class="fullscreen" onclick="toggleFull()">⛶ FULL SCREEN</button>
+
+<main class="presentation">
+
+<!-- SLIDE 1 -->
+
+<section class="slide active">
+
+<div class="hero">
+
+<div>
+<div class="top-label">01 / INFORMATION SYSTEM</div>
+
+<h1 class="pulse">МААЛЫМАТ ЖАНА <span>АНЫН ТҮРЛӨРҮ</span></h1>
+
+<div class="neon-line"></div>
+
+<p class="hero-text">
+Маалымат — бул адам, жаратылыш же коом жөнүндө алынган кабарлардын, фактылардын жана түшүнүктөрдүн жыйындысы. Маалымат адамдын айлана-чөйрөнү таанып-билүүсүнө, туура чечим кабыл алуусуна жана ар кандай маселелерди чечүүсүнө жардам берет.
+<br><br>
+Азыркы санариптик доордо маалымат эң маанилүү ресурстардын бири болуп саналат. Биз күн сайын интернеттен, китептерден, телефондон, телевидениеден жана башка булактардан маалымат алабыз.
+</p>
+
+<div style="margin-top:20px">
+<span class="badge">DIGITAL WORLD</span>
+<span class="badge">INFORMATION</span>
+<span class="badge">TECHNOLOGY</span>
+</div>
+</div>
+
+<div class="hero-image">
+<img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1000" alt="Санариптик дүйнө">
+</div>
+
+</div>
+
+<div class="grid three">
+
+<div class="card">
+<div class="number">01</div>
+<h3>Тексттик маалымат</h3>
+<p>Тамгалар, сөздөр жана сүйлөмдөр аркылуу берилет. Мисалы: китеп, кат, макала, электрондук билдирүү.</p>
+</div>
+
+<div class="card">
+<div class="number">02</div>
+<h3>Сандык маалымат</h3>
+<p>Сандар жана математикалык белгилер аркылуу көрсөтүлөт. Мисалы: эсептөөлөр, баалар, температура жана статистика.</p>
+</div>
+
+<div class="card">
+<div class="number">03</div>
+<h3>Графикалык маалымат</h3>
+<p>Сүрөт, чийме, схема, карта жана диаграммалар аркылуу берилген маалымат.</p>
+</div>
+
+<div class="card">
+<div class="number">04</div>
+<h3>Үн маалымат</h3>
+<p>Адамдын сүйлөөсү, музыка, табигый үндөр жана башка аудио жазуулар.</p>
+</div>
+
+<div class="card">
+<div class="number">05</div>
+<h3>Видео маалымат</h3>
+<p>Кыймылдуу сүрөттөрдөн жана үндөн турган маалымат. Мисалы: фильм, сабак жана видеоролик.</p>
+</div>
+
+<div class="card">
+<div class="number">06</div>
+<h3>Аралаш маалымат</h3>
+<p>Текст, сүрөт, үн жана видеонун биргелешип колдонулушу. Мультимедиялык презентациялар буга мисал болот.</p>
+</div>
+
+</div>
+</section>
+
+
+<!-- SLIDE 2 -->
+
+<section class="slide">
+
+<div class="top-label">02 / DATA MEASUREMENT</div>
+
+<h1>МААЛЫМАТТЫН <span>ӨЛЧӨӨ БИРДИКТЕРИ</span></h1>
+
+<div class="neon-line"></div>
+
+<p>
+Компьютерде маалыматты сактоо, иштетүү жана берүү үчүн атайын өлчөө бирдиктери колдонулат. Маалыматтын эң кичине бирдиги — бит. Бит эки гана маанинин бирин кабыл алат: 0 же 1. Компьютердеги бардык маалыматтар экилик код аркылуу көрсөтүлөт.
+</p>
+
+<div class="visual">
+
+<div>
+<h2>Негизги өлчөө бирдиктери</h2>
+
+<div class="card">
+<h3>BIT (БИТ)</h3>
+<p>Маалыматтын эң кичине бирдиги. 0 же 1 маанисин билдирет.</p>
+</div>
+
+<div class="card">
+<h3>BYTE (БАЙТ)</h3>
+<p>1 байт = 8 бит. Бир байт көбүнчө бир символду сактоого жетет.</p>
+</div>
+
+<div class="card">
+<h3>KILOBYTE (КБ)</h3>
+<p>1 КБ = 1024 байт. Чакан тексттик маалыматтардын көлөмүн көрсөтүүдө колдонулат.</p>
+</div>
+
+<div class="card">
+<h3>MEGABYTE (МБ)</h3>
+<p>1 МБ = 1024 КБ. Сүрөттөр жана документтер үчүн кеңири колдонулат.</p>
+</div>
+
+</div>
+
+<div>
+
+<img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1000" alt="Компьютердик микросхема">
+
+<div class="card" style="margin-top:18px">
+<h3>Чоң маалымат бирдиктери</h3>
+<ul>
+<li><b>1 ГБ</b> = 1024 МБ</li>
+<li><b>1 ТБ</b> = 1024 ГБ</li>
+<li><b>1 ПБ</b> = 1024 ТБ</li>
+<li><b>1 ЭБ</b> = 1024 ПБ</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+<div class="card" style="margin-top:18px">
+<h3>МИСАЛ</h3>
+<p>
+Эгер сүрөттүн көлөмү 5 МБ болсо, ал эми флешка 16 ГБ болсо, флешкага көп сандагы ушундай сүрөттөрдү сактоого болот. Демек, маалыматтын көлөмү канчалык чоң болсо, аны сактоо үчүн ошончолук көп эс тутум талап кылынат.
+</p>
+</div>
+
+</section>
+
+
+<!-- SLIDE 3 -->
+
+<section class="slide">
+
+<div class="top-label">03 / HISTORY OF COMPUTING</div>
+
+<h1>ЭСЕПТӨӨ ТЕХНИКАСЫНЫН <span>ӨНҮГҮҮ ТАРЫХЫ</span></h1>
+
+<div class="neon-line"></div>
+
+<p>
+Эсептөө техникасы адамзаттын эсептөө иштерин жеңилдетүү аракетинен башталган. Алгач адамдар жөнөкөй шаймандарды колдонушкан. Кийин механикалык эсептөө машиналары, электрондук компьютерлер жана заманбап акылдуу түзүлүштөр пайда болгон.
+</p>
+
+<div class="timeline">
+
+<div class="time-card">
+<h3>01 / БАЙЫРКЫ ДООР</h3>
+<p>Абак жана эсептөө такталары сандарды эсептөө үчүн колдонулган. Бул эсептөө техникасынын алгачкы кадамдары болгон.</p>
+</div>
+
+<div class="time-card">
+<h3>02 / XVII К.</h3>
+<p>Блез Паскаль механикалык эсептөө машинасын түзгөн. Ал кошуу жана кемитүү амалдарын аткарган.</p>
+</div>
+
+<div class="time-card">
+<h3>03 / XIX К.</h3>
+<p>Чарльз Бэббидж аналитикалык машинанын долбоорун иштеп чыккан. Ада Лавлейс программалоонун тарыхында маанилүү орун алган.</p>
+</div>
+
+<div class="time-card">
+<h3>04 / XX К.</h3>
+<p>Электрондук компьютерлер пайда болгон. ENIAC сыяктуу машиналар чоң көлөмдөгү эсептөөлөрдү аткарган.</p>
+</div>
+
+<div class="time-card">
+<h3>05 / XXI К.</h3>
+<p>Ноутбуктар, смартфондор, интернет, булут технологиялары жана жасалма интеллект кеңири өнүккөн.</p>
+</div>
+
+</div>
+
+<div class="visual" style="margin-top:30px">
+
+<div>
+<h2>Компьютерлердин муундары</h2>
+
+<div class="card">
+<h3>1-муун — Электрондук лампалар</h3>
+<p>Компьютерлер өтө чоң болгон, көп энергия сарптаган жана ысып кеткен.</p>
+</div>
+
+<div class="card">
+<h3>2-муун — Транзисторлор</h3>
+<p>Компьютерлер кичирейип, иштөө ылдамдыгы жана ишенимдүүлүгү жогорулаган.</p>
+</div>
+
+<div class="card">
+<h3>3-муун — Интегралдык схемалар</h3>
+<p>Көптөгөн электрондук элементтер бир микросхемага жайгаштырыла баштаган.</p>
+</div>
+
+<div class="card">
+<h3>4- жана 5-муун — Микропроцессорлор жана жаңы технологиялар</h3>
+<p>Жеке компьютерлер, интернет, мобилдик түзүлүштөр жана жасалма интеллект өнүккөн.</p>
+</div>
+</div>
+
+<div>
+<img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1000" alt="Электрондук технологиялар">
+<img style="margin-top:15px" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1000" alt="Заманбап компьютердик технологиялар">
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SLIDE 4 -->
+
+<section class="slide">
+
+<div class="top-label">04 / COMPUTER STRUCTURE</div>
+
+<h1>КОМПЬЮТЕРДИН <span>АППАРАТТЫК ЖАНА ПРОГРАММАЛЫК ЖАБДЫГЫ</span></h1>
+
+<div class="neon-line"></div>
+
+<p>
+Компьютер — маалыматты кабыл алган, иштеткен, сактаган жана колдонуучуга жеткирген электрондук түзүлүш. Анын туура иштеши үчүн аппараттык жана программалык жабдыктар бири-бири менен байланышта болушу керек.
+</p>
+
+<div class="visual">
+
+<div>
+<h2>Аппараттык жабдык (Hardware)</h2>
+
+<img src="https://images.unsplash.com/photo-1587831990711-23ca6441447b?w=1000" alt="Компьютердин аппараттык жабдыгы">
+
+<p class="image-caption">Компьютердин физикалык бөлүктөрү</p>
+
+<div class="card" style="margin-top:15px">
+<h3>НЕГИЗГИ БӨЛҮКТӨРҮ</h3>
+<ul>
+<li><b>Процессор (CPU)</b> — компьютердин негизги эсептөө бөлүгү, буйруктарды аткарат.</li>
+<li><b>Эс тутум (RAM)</b> — учурда иштеп жаткан маалыматтарды убактылуу сактайт.</li>
+<li><b>Катуу диск же SSD</b> — маалыматтарды узак убакытка сактайт.</li>
+<li><b>Монитор</b> — маалыматты экранда көрсөтөт.</li>
+<li><b>Клавиатура жана чычкан</b> — маалыматты киргизүүгө жардам берет.</li>
+</ul>
+</div>
+</div>
+
+<div>
+<h2>Программалык жабдык (Software)</h2>
+
+<img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1000" alt="Программалык жабдык">
+
+<p class="image-caption">Программалар жана санариптик интерфейстер</p>
+
+<div class="card" style="margin-top:15px">
+<h3>НЕГИЗГИ ТҮРЛӨРҮ</h3>
+<ul>
+<li><b>Системалык программалар</b> — компьютердин иштешин камсыздайт.</li>
+<li><b>Колдонмо программалар</b> — колдонуучунун тапшырмаларын аткарат.</li>
+<li><b>Программалоо каражаттары</b> — жаңы программаларды түзүүгө жардам берет.</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div class="card" style="margin-top:20px">
+<h3>ЭСТЕ САКТА!</h3>
+<p>Аппараттык жабдык — компьютердин кол менен кармоого мүмкүн болгон бөлүктөрү. Программалык жабдык — компьютерге эмне кылуу керектигин билдирген программалар. Экөө тең бири-бирисиз толук иштей албайт.</p>
+</div>
+
+</section>
+
+
+<!-- SLIDE 5 -->
+
+<section class="slide">
+
+<div class="top-label">05 / OPERATING SYSTEMS</div>
+
+<h1><span>ОПЕРАЦИЯЛЫК</span> СИСТЕМАЛАР</h1>
+
+<div class="neon-line"></div>
+
+<div class="hero">
+
+<div>
+<p>
+Операциялык система — компьютердин аппараттык жабдыктарын жана программаларын башкарган негизги системалык программа. Ал колдонуучу менен компьютердин ортосунда байланыш түзөт.
+<br><br>
+Операциялык система компьютер күйгүзүлгөндө ишке кирет. Ал процессордун ишин, оперативдик эс тутумду, файлдарды, түзүлүштөрдү жана программалардын аткарылышын көзөмөлдөйт.
+</p>
+
+<div class="card" style="margin-top:20px">
+<h3>ОПЕРАЦИЯЛЫК СИСТЕМАНЫН МИЛДЕТТЕРИ</h3>
+<ul>
+<li>Компьютердин ресурстарын башкаруу.</li>
+<li>Программаларды иштетүү.</li>
+<li>Файлдарды жана папкаларды башкаруу.</li>
+<li>Колдонуучу менен байланыш түзүү.</li>
+<li>Түзүлүштөрдүн туура иштешин камсыз кылуу.</li>
+<li>Маалыматтарды жана системаны коргоого көмөктөшүү.</li>
+</ul>
+</div>
+</div>
+
+<div class="hero-image">
+<img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1000" alt="Сервердик компьютер системасы">
+</div>
+
+</div>
+
+<h2 style="margin-top:25px">Кеңири колдонулган операциялык системалар</h2>
+
+<div class="grid three">
+
+<div class="card">
+<div class="number">01</div>
+<h3>WINDOWS</h3>
+<p>Microsoft компаниясынын операциялык системасы. Үйдө, мектепте жана кеңселерде кеңири колдонулат.</p>
+</div>
+
+<div class="card">
+<div class="number">02</div>
+<h3>LINUX</h3>
+<p>Ачык коддуу операциялык системалардын үй-бүлөсү. Серверлерде, компьютерлерде жана башка түзүлүштөрдө колдонулат.</p>
+</div>
+
+<div class="card">
+<div class="number">03</div>
+<h3>macOS</h3>
+<p>Apple компаниясынын Mac компьютерлери үчүн иштелип чыккан операциялык системасы.</p>
+</div>
+
+<div class="card">
+<div class="number">04</div>
+<h3>ANDROID</h3>
+<p>Смартфондордо жана планшеттерде кеңири колдонулган мобилдик операциялык система.</p>
+</div>
+
+<div class="card">
+<div class="number">05</div>
+<h3>iOS</h3>
+<p>Apple компаниясынын iPhone смартфондору үчүн иштелип чыккан операциялык системасы.</p>
+</div>
+
+<div class="card">
+<div class="number">06</div>
+<h3>ДРУГИЕ СИСТЕМАЛАР</h3>
+<p>ChromeOS жана башка системалар белгилүү бир түзүлүштөрдө жана максаттарда колдонулат.</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SLIDE 6 -->
+
+<section class="slide">
+
+<div class="top-label">06 / FILE MANAGEMENT</div>
+
+<h1>ФАЙЛДЫК СИСТЕМА ЖАНА <span>ФАЙЛДАР МЕНЕН ИШТӨӨ</span></h1>
+
+<div class="neon-line"></div>
+
+<p>
+Файл — компьютерде сакталган маалыматтын белгилүү бир аталышы бар бөлүгү. Файлдын ичинде текст, сүрөт, музыка, видео, программа же башка маалыматтар болушу мүмкүн.
+<br><br>
+Файлдык система — маалыматтарды сактоочу түзүлүштөрдө файлдарды жана папкаларды уюштурууга, жайгаштырууга жана табууга жардам берген система.
+</p>
+
+<div class="visual">
+
+<div>
+<h2>Файлдардын негизги түрлөрү</h2>
+
+<div class="card">
+<h3>TXT / DOCX</h3>
+<p>Тексттик документтерди сактоо үчүн колдонулат. Мисалы: реферат, баяндама жана сабактын конспектиси.</p>
+</div>
+
+<div class="card">
+<h3>JPG / PNG</h3>
+<p>Сүрөт жана графикалык маалыматтарды сактоочу файл форматтары.</p>
+</div>
+
+<div class="card">
+<h3>MP3 / WAV</h3>
+<p>Музыканы жана башка аудио маалыматтарды сактоочу форматтар.</p>
+</div>
+
+<div class="card">
+<h3>MP4 / AVI</h3>
+<p>Видеоматериалдарды сактоо үчүн колдонулган форматтар.</p>
+</div>
+
+<div class="card">
+<h3>PDF / PPTX / XLSX</h3>
+<p>Электрондук документтерди, презентацияларды жана таблицаларды сактоого арналган форматтар.</p>
+</div>
+</div>
+
+<div>
+<img src="https://images.unsplash.com/photo-1517842645767-c639042777db?w=1000" alt="Документтер менен иштөө">
+
+<h2 style="margin-top:20px">Файлдар менен иштөө амалдары</h2>
+
+<div class="card">
+<ul>
+<li><b>Түзүү</b> — жаңы файл же папка ачуу.</li>
+<li><b>Көчүрүү</b> — файлдын көчүрмөсүн алуу.</li>
+<li><b>Жылдыруу</b> — файлды башка жерге өткөрүү.</li>
+<li><b>Атын өзгөртүү</b> — файлдын аталышын алмаштыруу.</li>
+<li><b>Өчүрүү</b> — керексиз файлды жок кылуу.</li>
+<li><b>Издөө</b> — керектүү файлды табуу.</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div class="card" style="margin-top:20px">
+<h3>ФАЙЛДЫК СИСТЕМАЛАРДЫН МИСАЛДАРЫ</h3>
+<p>
+NTFS — Windows системасында кеңири колдонулат. FAT32 — көптөгөн түзүлүштөр менен шайкеш иштейт. exFAT — чоң көлөмдөгү файлдарды сактоо үчүн флешкаларда колдонулат. ext4 — Linux системаларында кеңири таралган файлдык система.
+</p>
+</div>
+
+<div style="margin-top:22px">
+<span class="badge">FILE</span>
+<span class="badge">FOLDER</span>
+<span class="badge">STORAGE</span>
+<span class="badge">DIGITAL DATA</span>
+</div>
+
+<h2 class="pulse" style="margin-top:25px;text-align:center">
+МААЛЫМАТ — ЗАМАНБАП ДҮЙНӨНҮН ЭҢ МААНИЛҮҮ БАЙЛЫГЫ!
+</h2>
+
+<p style="text-align:center;margin-top:8px">
+Көңүл бурганыңыздар үчүн рахмат!
+</p>
+
+</section>
+
+</main>
+
+<div class="nav">
+<button onclick="changeSlide(-1)">◀ PREV</button>
+<div id="counter">01 / 06</div>
+<button onclick="changeSlide(1)">NEXT ▶</button>
+</div>
+
+<div class="progress" id="progress"></div>
+
+<script>
+let current=0;
+
+const slides=document.querySelectorAll('.slide');
+const counter=document.getElementById('counter');
+const progress=document.getElementById('progress');
+
+function showSlide(n){
+ slides[current].classList.remove('active');
+
+ current=(n+slides.length)%slides.length;
+
+ slides[current].classList.add('active');
+
+ counter.textContent=
+ String(current+1).padStart(2,'0')+
+ ' / '+String(slides.length).padStart(2,'0');
+
+ progress.style.width=
+ ((current+1)/slides.length*100)+'%';
+}
+
+function changeSlide(direction){
+ showSlide(current+direction);
+}
+
+document.addEventListener('keydown',e=>{
+ if(e.key==='ArrowRight'||e.key===' '){
+  changeSlide(1);
+ }
+ if(e.key==='ArrowLeft'){
+  changeSlide(-1);
+ }
+ if(e.key==='Home'){
+  showSlide(0);
+ }
+ if(e.key==='End'){
+  showSlide(slides.length-1);
+ }
+});
+
+function toggleFull(){
+ if(!document.fullscreenElement){
+  document.documentElement.requestFullscreen?.();
+ }else{
+  document.exitFullscreen?.();
+ }
+}
+
+// Телефондо слайддарды сүрүп алмаштыруу
+let startX=0;
+
+document.addEventListener('touchstart',e=>{
+ startX=e.changedTouches[0].screenX;
+},{passive:true});
+
+document.addEventListener('touchend',e=>{
+ let endX=e.changedTouches[0].screenX;
+ let diff=endX-startX;
+
+ if(Math.abs(diff)>70){
+  changeSlide(diff<0?1:-1);
+ }
+},{passive:true});
+
+showSlide(0);
+</script>
+
+</body>
+</html>
